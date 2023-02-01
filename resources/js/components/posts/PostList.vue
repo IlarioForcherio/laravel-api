@@ -1,18 +1,16 @@
 <template>
     <div>
-
-
         <!-- dati dei post  -->
         <h2>Lista dei Post</h2>
         <div>
-            <Loader v-if='loading' />
-            <ul v-else-if='postsApp.length'>
-                <li v-for="elem in postsApp" :key="elem.id">{{elem.title}}</li>
+            <Loader v-if='isloading' />
+            <ul v-else-if='posts.length'>
+                <li v-for="elem in posts" :key="elem.id">{{elem.title}}</li>
             </ul>
             <p v-else>Non sono presenti Post</p>
         </div>
 
-<Pagination/>
+<Pagination :paginationPost='pagination'/>
     </div>
 </template>
 
@@ -24,8 +22,9 @@ export default {
 
     name: 'PostList',
     props: {
-        postsApp: Array,
-        loading:Boolean,
+        // postsApp: Array,
+        // loading:Boolean,
+        // paginationApp:Array
     },
     //props: ['posts', 'isLoading'],
 
@@ -34,10 +33,43 @@ export default {
         Pagination,
     },
     data(){
-
-
         return{
+            posts: [],
+            isloading: false,
+            pagination:{},
         //isloading:true
+        }
+    },
+    mounted(){
+    this.getPosts();
+    },
+    methods:{
+             getPosts(page = 1) {
+
+            this.isloading = true
+            axios.get('http://localhost:8000/api/posts?page=' +  page)
+                .then(response => {
+
+                    this.posts = response.data.data
+                    console.log(this.posts)
+
+                    //destrutturizzazione
+                    const {data, current_page, last_page} = response.data;
+                    //salva dentro a tre costanti i valori delle chiavi corrispondenti nell'oggetto
+                  this.posts = data;
+                  //creo un oggetto  ha delle chiavi inventate da noi e come valori le chiavi dell'oggetto estrapolato.
+                  this.pagination = {
+                    lastPage:last_page,
+                    currentPage: current_page
+                  }
+
+                }).catch(error => {
+                    console.log(error);
+                }).then(() => {
+                    this.isloading = false
+                });
+
+
         }
     }
 }

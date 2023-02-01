@@ -3,19 +3,16 @@
     <div>
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item">
+                <!-- prima pagina -->
+                <li v-if="paginationPost.currentPage > 1" class="page-item">
                     <span role="button" class="page-link">Previous</span>
                 </li>
-                <li class="page-item" role="button">
-                    <span role="button" class="page-link">1</span>
+                <!-- pagine mediane -->
+                <li v-for="n in paginationPost.lastPage" :key="n" class="page-item" role="button">
+                    <span role="button" class="page-link">{{n}}</span>
                 </li>
-                <li class="page-item" role="button">
-                    <span role="button" class="page-link">2</span>
-                </li>
-                <li class="page-item" role="button">
-                    <span role="button" class="page-link">3</span>
-                </li>
-                <li class="page-item" role="button">
+                <!-- ultima pagina -->
+                <li v-if="paginationPost.currentPage != paginationPost.lastPage" class="page-item" role="button">
                     <span role="button" class="page-link">Next</span>
                 </li>
             </ul>
@@ -27,7 +24,10 @@
 
 <script>
 export default {
-    name: 'Pagination'
+    name: 'Pagination',
+    props: {
+        paginationPost: Object
+    }
 }
 </script>
 

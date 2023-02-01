@@ -1925,7 +1925,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Pagination'
+  name: 'Pagination',
+  props: {
+    paginationPost: Object
+  }
 });
 
 /***/ }),
@@ -1946,8 +1949,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostList',
   props: {
-    postsApp: Array,
-    loading: Boolean
+    // postsApp: Array,
+    // loading:Boolean,
+    // paginationApp:Array
   },
   //props: ['posts', 'isLoading'],
 
@@ -1957,8 +1961,42 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      posts: [],
+      isloading: false,
+      pagination: {}
       //isloading:true
     };
+  },
+  mounted: function mounted() {
+    this.getPosts();
+  },
+  methods: {
+    getPosts: function getPosts() {
+      var _this = this;
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.isloading = true;
+      axios.get('http://localhost:8000/api/posts?page=' + page).then(function (response) {
+        _this.posts = response.data.data;
+        console.log(_this.posts);
+
+        //destrutturizzazione
+        var _response$data = response.data,
+          data = _response$data.data,
+          current_page = _response$data.current_page,
+          last_page = _response$data.last_page;
+        //salva dentro a tre costanti i valori delle chiavi corrispondenti nell'oggetto
+        _this.posts = data;
+        //creo un oggetto  ha delle chiavi inventate da noi e come valori le chiavi dell'oggetto estrapolato.
+        _this.pagination = {
+          lastPage: last_page,
+          currentPage: current_page
+        };
+      })["catch"](function (error) {
+        console.log(error);
+      }).then(function () {
+        _this.isloading = false;
+      });
+    }
   }
 });
 
@@ -1982,26 +2020,43 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      posts: [],
-      isloading: false
+      // posts: [],
+      // isloading: false,
+      // pagination:{},
     };
   },
   mounted: function mounted() {
-    this.getPosts();
+
+    // this.getPosts()
   },
   methods: {
-    getPosts: function getPosts() {
-      var _this = this;
-      this.isloading = true;
-      axios.get('http://localhost:8000/api/posts').then(function (response) {
-        _this.posts = response.data.data;
-        console.log(_this.posts);
-      })["catch"](function (error) {
-        console.log(error);
-      }).then(function () {
-        _this.isloading = false;
-      });
-    }
+
+    // getPosts(page = 1) {
+
+    //     this.isloading = true
+    //     axios.get('http://localhost:8000/api/posts?page=' +  page)
+    //         .then(response => {
+
+    //             this.posts = response.data.data
+    //             console.log(this.posts)
+
+    //             //destrutturizzazione
+    //             const {data, current_page, last_page} = response.data;
+    //             //salva dentro a tre costanti i valori delle chiavi corrispondenti nell'oggetto
+    //           this.posts = data;
+    //           //creo un oggetto  ha delle chiavi inventate da noi e come valori le chiavi dell'oggetto estrapolato.
+    //           this.pagination = {
+    //             lastPage:last_page,
+    //             currentPage: current_page
+    //           }
+
+    //         }).catch(error => {
+    //             console.log(error);
+    //         }).then(() => {
+    //             this.isloading = false
+    //         });
+
+    // }
   }
 });
 
@@ -2055,25 +2110,33 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm._m(0);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
   return _c("div", [_c("nav", {
     attrs: {
       "aria-label": "Page navigation example"
     }
   }, [_c("ul", {
     staticClass: "pagination"
-  }, [_c("li", {
+  }, [_vm.paginationPost.currentPage > 1 ? _c("li", {
     staticClass: "page-item"
   }, [_c("span", {
     staticClass: "page-link",
     attrs: {
       role: "button"
     }
-  }, [_vm._v("Previous")])]), _vm._v(" "), _c("li", {
+  }, [_vm._v("Previous")])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.paginationPost.lastPage, function (n) {
+    return _c("li", {
+      key: n,
+      staticClass: "page-item",
+      attrs: {
+        role: "button"
+      }
+    }, [_c("span", {
+      staticClass: "page-link",
+      attrs: {
+        role: "button"
+      }
+    }, [_vm._v(_vm._s(n))])]);
+  }), _vm._v(" "), _vm.paginationPost.currentPage != _vm.paginationPost.lastPage ? _c("li", {
     staticClass: "page-item",
     attrs: {
       role: "button"
@@ -2083,38 +2146,9 @@ var staticRenderFns = [function () {
     attrs: {
       role: "button"
     }
-  }, [_vm._v("1")])]), _vm._v(" "), _c("li", {
-    staticClass: "page-item",
-    attrs: {
-      role: "button"
-    }
-  }, [_c("span", {
-    staticClass: "page-link",
-    attrs: {
-      role: "button"
-    }
-  }, [_vm._v("2")])]), _vm._v(" "), _c("li", {
-    staticClass: "page-item",
-    attrs: {
-      role: "button"
-    }
-  }, [_c("span", {
-    staticClass: "page-link",
-    attrs: {
-      role: "button"
-    }
-  }, [_vm._v("3")])]), _vm._v(" "), _c("li", {
-    staticClass: "page-item",
-    attrs: {
-      role: "button"
-    }
-  }, [_c("span", {
-    staticClass: "page-link",
-    attrs: {
-      role: "button"
-    }
-  }, [_vm._v("Next")])])])])]);
-}];
+  }, [_vm._v("Next")])]) : _vm._e()], 2)])]);
+};
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -2134,11 +2168,15 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("h2", [_vm._v("Lista dei Post")]), _vm._v(" "), _c("div", [_vm.loading ? _c("Loader") : _vm.postsApp.length ? _c("ul", _vm._l(_vm.postsApp, function (elem) {
+  return _c("div", [_c("h2", [_vm._v("Lista dei Post")]), _vm._v(" "), _c("div", [_vm.isloading ? _c("Loader") : _vm.posts.length ? _c("ul", _vm._l(_vm.posts, function (elem) {
     return _c("li", {
       key: elem.id
     }, [_vm._v(_vm._s(elem.title))]);
-  }), 0) : _c("p", [_vm._v("Non sono presenti Post")])], 1), _vm._v(" "), _c("Pagination")], 1);
+  }), 0) : _c("p", [_vm._v("Non sono presenti Post")])], 1), _vm._v(" "), _c("Pagination", {
+    attrs: {
+      paginationPost: _vm.pagination
+    }
+  })], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2160,12 +2198,7 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("PostList", {
-    attrs: {
-      postsApp: _vm.posts,
-      loading: _vm.isloading
-    }
-  })], 1);
+  return _c("div", [_c("PostList")], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
