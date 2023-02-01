@@ -1,35 +1,46 @@
 <template>
     <div>
-        <!-- dati dei post  -->
-<div>
-    <ul>
 
-        <li v-for="elem in posts" :key="elem.id">{{elem.title}}</li>
-    </ul>
-</div>
+
+        <!-- dati dei post  -->
+        <div>
+            <Loader v-if='isLoading' />
+            <ul v-else-if='posts.length'>
+                <li v-for="elem in posts" :key="elem.id">{{elem.title}}</li>
+            </ul>
+            <p v-else>Non sono presenti Post</p>
+        </div>
+
     </div>
 </template>
 
 <script>
-
+ import Loader from '../Loader.vue'
 
 export default {
-name:'PostList',
 
-// props:{
-// arrayPosts:Object
-// },
-props: ['posts'],
+    name: 'PostList',
+    props: {
+        posts: Array,
+        loading:Boolean,
+    },
+    //props: ['posts', 'isLoading'],
 
-components:{
+    components: {
+        Loader,
+    },
+    // data(){
+    //     console.log(this.posts)
 
-},
-data(){
+    //     return{
 
-    return{
-
-    }
-}
+    //     }
+    // }
 }
 </script>
+
+<style scoped lang='scss'>
+
+</style>
+
 

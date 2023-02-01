@@ -1,52 +1,56 @@
 <template>
+    <!-- scrivo un template vue  -->
 
-<!-- scrivo un template vue  -->
+    <div>
 
-<div>
+        <h1>Work in progress</h1>
 
-<h1>Work in progress</h1>
-
-
-
-<PostList :arrayPosts="posts"/>
-</div>
-
-
+        <PostList :posts="posts" :loading='isLoading' />
+    </div>
 </template>
 
 
 
 <script>
-
- import PostList from '../components/posts/PostList'
+import PostList from '../components/posts/PostList'
 
 export default {
 
-components:{
- //qui metterai i componenti
- PostList,
-},
-data(){
-return {
-    posts: [],
-}
-},
-mounted(){
+    components: {
+        //qui metterai i componenti
+        PostList,
+    },
+    data() {
+        return {
+            posts: [],
+            isLoading: false,
+        }
+    },
+    mounted() {
 
-this.getPosts()
+        this.getPosts()
 
-},
-methods:{
-    getPosts(){
-        axios.get('http://localhost:8000/api/posts').then( response =>{
+    },
+    methods: {
 
-            this.posts = response.data
-            //console.log(this.posts)
-        } )
+        getPosts() {
+            console.log('diomerda')
+            this.isLoading = true
+            axios.get('http://localhost:8000/api/posts')
+                .then(response => {
+
+                    this.posts = response.data
+                    //console.log(this.posts)
+                }).catch(error => {
+                    console.log(error);
+                }).then(() => {
+                    this.isLoading = false
+                });
+
+
+        }
     }
-}
 
 }
-
 </script>
 
