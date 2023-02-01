@@ -6,13 +6,9 @@
 
 <h1>Work in progress</h1>
 
-<!-- dati dei post  -->
-<!-- <div>
-    <ul>
-        <li v-for="elem in posts" :key="elem.id">{{}}</li>
-    </ul>
-</div> -->
 
+
+<PostList :arrayPosts="posts"/>
 </div>
 
 
@@ -22,11 +18,13 @@
 
 <script>
 
+ import PostList from '../components/posts/PostList'
 
 export default {
 
 components:{
  //qui metterai i componenti
+ PostList,
 },
 data(){
 return {
@@ -41,8 +39,9 @@ this.getPosts()
 methods:{
     getPosts(){
         axios.get('http://localhost:8000/api/posts').then( response =>{
-            //console.log(response.data)
+
             this.posts = response.data
+            //console.log(this.posts)
         } )
     }
 }
