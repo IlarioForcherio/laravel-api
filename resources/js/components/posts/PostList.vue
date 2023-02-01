@@ -3,6 +3,7 @@
 
 
         <!-- dati dei post  -->
+        <h2>Lista dei Post</h2>
         <div>
             <Loader v-if='loading' />
             <ul v-else-if='postsApp.length'>
@@ -11,11 +12,13 @@
             <p v-else>Non sono presenti Post</p>
         </div>
 
+<Pagination/>
     </div>
 </template>
 
 <script>
  import Loader from '../Loader.vue'
+ import Pagination from '../Pagination.vue'
 
 export default {
 
@@ -28,6 +31,7 @@ export default {
 
     components: {
         Loader,
+        Pagination,
     },
     data(){
 

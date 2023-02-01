@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-      $post_api = Post::all();
+      $post_api = Post::OrderBy('id', 'DESC')->with('category', 'tags')->paginate(5);
 
       return response()->json($post_api);
     }

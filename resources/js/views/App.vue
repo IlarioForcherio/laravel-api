@@ -3,7 +3,7 @@
 
     <div>
 
-        <h1>Work in progress</h1>
+
 
         <PostList :postsApp="posts" :loading='isloading' />
     </div>
@@ -39,8 +39,8 @@ export default {
             axios.get('http://localhost:8000/api/posts')
                 .then(response => {
 
-                    this.posts = response.data
-                    //console.log(this.posts)
+                    this.posts = response.data.data
+                    console.log(this.posts)
                 }).catch(error => {
                     console.log(error);
                 }).then(() => {
