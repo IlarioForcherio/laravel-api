@@ -4,9 +4,9 @@
 
         <!-- dati dei post  -->
         <div>
-            <Loader v-if='isLoading' />
-            <ul v-else-if='posts.length'>
-                <li v-for="elem in posts" :key="elem.id">{{elem.title}}</li>
+            <Loader v-if='loading' />
+            <ul v-else-if='postsApp.length'>
+                <li v-for="elem in postsApp" :key="elem.id">{{elem.title}}</li>
             </ul>
             <p v-else>Non sono presenti Post</p>
         </div>
@@ -21,7 +21,7 @@ export default {
 
     name: 'PostList',
     props: {
-        posts: Array,
+        postsApp: Array,
         loading:Boolean,
     },
     //props: ['posts', 'isLoading'],
@@ -29,13 +29,13 @@ export default {
     components: {
         Loader,
     },
-    // data(){
-    //     console.log(this.posts)
+    data(){
 
-    //     return{
 
-    //     }
-    // }
+        return{
+        //isloading:true
+        }
+    }
 }
 </script>
 

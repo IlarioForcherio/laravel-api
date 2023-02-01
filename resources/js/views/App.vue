@@ -5,7 +5,7 @@
 
         <h1>Work in progress</h1>
 
-        <PostList :posts="posts" :loading='isLoading' />
+        <PostList :postsApp="posts" :loading='isloading' />
     </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
     data() {
         return {
             posts: [],
-            isLoading: false,
+            isloading: false,
         }
     },
     mounted() {
@@ -34,8 +34,8 @@ export default {
     methods: {
 
         getPosts() {
-            console.log('diomerda')
-            this.isLoading = true
+
+            this.isloading = true
             axios.get('http://localhost:8000/api/posts')
                 .then(response => {
 
@@ -44,7 +44,7 @@ export default {
                 }).catch(error => {
                     console.log(error);
                 }).then(() => {
-                    this.isLoading = false
+                    this.isloading = false
                 });
 
 
