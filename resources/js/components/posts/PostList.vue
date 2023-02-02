@@ -10,7 +10,10 @@
             <p v-else>Non sono presenti Post</p>
         </div>
 
-<Pagination :paginationPost='pagination'/>
+<Pagination
+:paginationPost='pagination'
+ @clicked_page='getPosts'
+/>
     </div>
 </template>
 
@@ -41,10 +44,10 @@ export default {
         }
     },
     mounted(){
-    this.getPosts();
+    this.getPosts(this.clicked_element);
     },
     methods:{
-             getPosts(page = 1) {
+             getPosts(page = this.clicked_element) {
 
             this.isloading = true
             axios.get('http://localhost:8000/api/posts?page=' +  page)

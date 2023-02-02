@@ -4,15 +4,15 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <!-- prima pagina -->
-                <li v-if="paginationPost.currentPage > 1" class="page-item">
+                <li @click="$emit('clicked_page',paginationPost.currentPage - 1  )" v-if="paginationPost.currentPage > 1" class="page-item">
                     <span role="button" class="page-link">Previous</span>
                 </li>
                 <!-- pagine mediane -->
-                <li v-for="n in paginationPost.lastPage" :key="n" class="page-item" role="button">
+                <li @click="$emit('clicked_page', n )" v-for="n in paginationPost.lastPage" :key="n" class="page-item" role="button">
                     <span role="button" class="page-link">{{n}}</span>
                 </li>
                 <!-- ultima pagina -->
-                <li v-if="paginationPost.currentPage != paginationPost.lastPage" class="page-item" role="button">
+                <li @click="$emit('clicked_page', paginationPost.currentPage + 1  )" v-if="paginationPost.currentPage != paginationPost.lastPage" class="page-item" role="button">
                     <span role="button" class="page-link">Next</span>
                 </li>
             </ul>

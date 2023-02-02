@@ -38,7 +38,10 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post_api_whow = Post::with('category', 'tags')->find($id);
+        if(!$post_api_whow) return response('post non trovato ', 404);
+
+        return response()->json($post_api_whow);
     }
 
     /**

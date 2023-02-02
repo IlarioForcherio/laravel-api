@@ -1,21 +1,18 @@
 <template>
-    <!-- scrivo un template vue  -->
     <div>
-        <HeaderComp/>
-        <!-- qui avviene l'importazione di tutti i componenti 'route -->
-        <router-view></router-view>
+        <h2>PostIndex</h2>
+        <PostList/>
     </div>
 </template>
 
 <script>
-import HeaderComp from '../components/HeaderComp.vue'
+import PostList from '../../../components/posts/PostList.vue'
 
 export default {
 
     components: {
         //qui metterai i componenti
-        HeaderComp,
-
+        PostList,
     },
     data() {
         return {
@@ -34,4 +31,5 @@ export default {
 
 }
 </script>
+
 

@@ -19,12 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//localhost:8000/api/posts
+
 //Route::get('/posts', "PostController@index");
 
 Route::namespace('Api')->prefix('/posts')->group(function(){
-
+//localhost:8000/api/posts
     Route::get('/', "PostController@index");
+//localhost:8000/api/posts/3
+    Route::get('/{id}', "PostController@show");
 
 
 });
