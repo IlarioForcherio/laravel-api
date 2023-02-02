@@ -17,7 +17,6 @@
                         <li class="nav-item">
                             <router-link class="nav-link" :to="{name:'about-us'}" >About Us</router-link>
                         </li>
-
                     </ul>
                 </div>
             </div>

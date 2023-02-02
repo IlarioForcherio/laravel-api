@@ -5,7 +5,17 @@
         <div>
             <Loader v-if='isloading' />
             <ul v-else-if='posts.length'>
-                <li v-for="elem in posts" :key="elem.id">{{elem.title}}</li>
+                <li v-for="elem in posts" :key="elem.id">
+                    <router-link :to="` /posts/${elem.id} `">
+                    {{elem.title}}
+                    <span v-if='elem.category'>
+                        {{elem.category.name}}
+                    </span>
+                    <ol>
+                        <li v-for='tag in elem.tags' :key="tag">{{tag.name}}</li>
+                    </ol>
+                    </router-link>
+                </li>
             </ul>
             <p v-else>Non sono presenti Post</p>
         </div>

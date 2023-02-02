@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <h2>Pagina del singolo post</h2>
+
         <!-- comp Postcard -->
         <PostCard/>
     </div>
